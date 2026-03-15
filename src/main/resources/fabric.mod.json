@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "id": "botania_pylon_crystal",
+  "version": "${version}",
+  "name": "Botania Pylon Crystal",
+  "description": "Pylon Crystal models for Botania.",
+  "icon": "icon_botania_pylon_crystal.png",
+  "authors": [
+    "CorvaeOboro"
+  ],
+  "contact": {
+    "homepage": "https://github.com/CorvaeOboro/minecraft_botania_pylon_crystal",
+    "sources": "https://github.com/CorvaeOboro/minecraft_botania_pylon_crystal",
+    "issues": "https://github.com/CorvaeOboro/minecraft_botania_pylon_crystal/issues"
+  },
+  "license": "Creative Commons Zero 1.0",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "corvaeoboro.botania_pylon_crystal.BotaniaPylonCrystal"
+    ],
+    "client": [
+      "corvaeoboro.botania_pylon_crystal.BotaniaPylonCrystalClient"
+    ],
+    "emi": [
+      "corvaeoboro.botania_pylon_crystal.compat.emi.BotaniaPylonCrystalEmiPlugin"
+    ]
+  },
+  "mixins": [
+    "botania_pylon_crystal.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.15.6",
+    "fabric-api": "*",
+    "minecraft": "=1.20.1",
+    "java": ">=17"
+  },
+  "suggests": {
+    "botania": "*"
+  }
+}

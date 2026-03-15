@@ -1,0 +1,19 @@
+{
+  "required": false,
+  "minVersion": "0.8",
+  "package": "corvaeoboro.botania_pylon_crystal.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "botania_pylon_crystal.refmap.json",
+  "mixins": [
+	"PylonBlockEntityDyeMixin",
+    "PylonBlockRenderShapeMixin"
+  ],
+  "client": [
+    "EntityRenderersMixin",
+    "PylonBlockEntityItemRendererMixin",
+    "PylonBlockEntityRendererMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

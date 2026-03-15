@@ -1,0 +1,7 @@
+{
+	"parent": "botania_pylon_crystal:block/pylon_crystal_bipyramid_shorttall",
+	"textures": {
+		"particle": "botania_pylon_crystal:block/pylon_crystal_natura",
+		"bipyramid_crystal_mat": "botania_pylon_crystal:block/pylon_crystal_natura"
+	}
+}

@@ -1,0 +1,61 @@
+plugins {
+    id 'fabric-loom' version '1.3.8'
+    id 'maven-publish'
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+    archivesName = project.archives_base_name
+}
+
+loom {
+    mixin.defaultRefmapName = "botania_pylon_crystal.refmap.json"
+}
+
+repositories {
+    maven { url = 'https://maven.fabricmc.net/' }
+    maven { url = 'https://maven.parchmentmc.net/' }
+    maven { url = 'https://maven.terraformersmc.com/' }
+    mavenCentral()
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${minecraft_version}"
+    mappings loom.layered() {
+        officialMojangMappings()
+        parchment("org.parchmentmc.data:parchment-1.20.1:2023.09.03@zip")
+    }
+    modImplementation "net.fabricmc:fabric-loader:${loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
+
+	// Optional integration: EMI (recipe viewer)
+	modCompileOnly "dev.emi:emi-fabric:${emi_version}:api"
+	modLocalRuntime "dev.emi:emi-fabric:${emi_version}"
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+    withSourcesJar()
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = 17
+    it.options.compilerArgs += [
+            "-Amixin.disableTargetValidator=true"
+    ]
+}
+
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+
+    exclude("assets/botania/models/block/mana_pylon.json")
+    exclude("assets/botania/models/item/mana_pylon.json")
+}

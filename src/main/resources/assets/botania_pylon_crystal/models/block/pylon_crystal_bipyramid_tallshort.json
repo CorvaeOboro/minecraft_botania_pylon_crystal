@@ -1,0 +1,88 @@
+{
+	"textures": {
+		"particle": "botania_pylon_crystal:block/pylon_crystal_mana",
+		"bipyramid_crystal_mat": "botania_pylon_crystal:block/pylon_crystal_mana"
+	},
+	"elements": [
+		{
+			"from": [7.99404, 8.97528, 4.42218],
+			"to": [13.06577, 8.98721, 11.57782],
+			"shade": false,
+			"rotation": {"angle": 45, "axis": "z", "origin": [8, 8.98721, 8], "rescale": true},
+			"faces": {
+				"down": {"uv": [12.125, 12.125, 15.875, 15.875], "rotation": 90, "texture": "#bipyramid_crystal_mat"}
+			}
+		},
+		{
+			"from": [4.42218, 12.56503, 4.41621],
+			"to": [11.57782, 21.91434, 4.42814],
+			"shade": false,
+			"rotation": {"angle": 22.5, "axis": "x", "origin": [8, 12.56503, 4.42218], "rescale": true},
+			"faces": {
+				"north": {"uv": [0.125, 0.125, 3.875, 3.875], "texture": "#bipyramid_crystal_mat"}
+			}
+		},
+		{
+			"from": [4.42218, 12.56503, 11.57186],
+			"to": [11.57782, 21.91434, 11.58379],
+			"shade": false,
+			"rotation": {"angle": -22.5, "axis": "x", "origin": [8, 12.56503, 11.57782], "rescale": true},
+			"faces": {
+				"south": {"uv": [8.125, 0.125, 11.875, 3.875], "texture": "#bipyramid_crystal_mat"}
+			}
+		},
+		{
+			"from": [4.41621, 12.56503, 4.42218],
+			"to": [4.42814, 21.91434, 11.57782],
+			"shade": false,
+			"rotation": {"angle": -22.5, "axis": "z", "origin": [4.42218, 12.56503, 8], "rescale": true},
+			"faces": {
+				"west": {"uv": [4.125, 0.125, 7.875, 3.875], "texture": "#bipyramid_crystal_mat"}
+			}
+		},
+		{
+			"from": [11.57186, 12.56503, 4.42218],
+			"to": [11.58379, 21.91434, 11.57782],
+			"shade": false,
+			"rotation": {"angle": 22.5, "axis": "z", "origin": [11.57782, 12.56503, 8], "rescale": true},
+			"faces": {
+				"east": {"uv": [12.125, 0.125, 15.875, 3.875], "texture": "#bipyramid_crystal_mat"}
+			}
+		},
+		{
+			"from": [4.42218, 8.97528, 2.93423],
+			"to": [11.57782, 8.98721, 8.00596],
+			"shade": false,
+			"rotation": {"angle": 45, "axis": "x", "origin": [8, 8.98721, 8], "rescale": true},
+			"faces": {
+				"down": {"uv": [0.125, 12.125, 3.875, 15.875], "rotation": 180, "texture": "#bipyramid_crystal_mat"}
+			}
+		},
+		{
+			"from": [4.42218, 8.97528, 7.99404],
+			"to": [11.57782, 8.98721, 13.06577],
+			"shade": false,
+			"rotation": {"angle": -45, "axis": "x", "origin": [8, 8.98721, 8], "rescale": true},
+			"faces": {
+				"down": {"uv": [8.125, 12.125, 11.875, 15.875], "texture": "#bipyramid_crystal_mat"}
+			}
+		},
+		{
+			"from": [2.93423, 8.97528, 4.42218],
+			"to": [8.00596, 8.98721, 11.57782],
+			"shade": false,
+			"rotation": {"angle": -45, "axis": "z", "origin": [8, 8.98721, 8], "rescale": true},
+			"faces": {
+				"down": {"uv": [4.125, 12.125, 7.875, 15.875], "rotation": 270, "texture": "#bipyramid_crystal_mat"}
+			}
+		}
+	],
+	"groups": [
+		{
+			"name": "group",
+			"origin": [8, 9.184, 8],
+			"color": 0,
+			"children": [0, 1, 2, 3, 4, 5, 6, 7]
+		}
+	]
+}

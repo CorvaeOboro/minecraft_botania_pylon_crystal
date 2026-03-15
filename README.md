@@ -5,10 +5,12 @@
 a Minecraft mod that replaces [Botania](https://github.com/VazkiiMods/Botania) pylon visuals with crystals
 - Available for Minecraft 1.20.x with Fabric 
 
-<img src="/docs/minecraft_botania_pylon_crystal_thumb.png?raw=true" height="64"/>
-<img src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/supported/fabric_vector.svg" height="64"/>
-<img src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/modrinth_vector.svg" height="64"/>
-<img src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/curseforge_vector.svg" height="64"/>
+
+|<a href="/docs/minecraft_botania_pylon_crystal_thumb.png?raw=true"><img src="/docs/minecraft_botania_pylon_crystal_thumb.png?raw=true" height="64"/></a>| 
+<a href="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/supported/fabric_vector.svg"><img src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/supported/fabric_vector.svg" height="64"/></a>| 
+<a href="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/modrinth_vector.svg"><img src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/modrinth_vector.svg" height="64"/></a>| 
+<a href="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/curseforge_vector.svg"><img src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/curseforge_vector.svg" height="64"/></a>|
+| :---: | :---: | :---: | :---: |
 
 <insert image of the animated webp  image here>
 
