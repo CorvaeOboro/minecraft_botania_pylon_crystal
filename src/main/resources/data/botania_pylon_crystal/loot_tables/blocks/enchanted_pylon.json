@@ -11,6 +11,9 @@
       ],
       "conditions": [
         {
+          "condition": "botania_pylon_crystal:enchanted_pylon_enabled"
+        },
+        {
           "condition": "minecraft:survives_explosion"
         }
       ]

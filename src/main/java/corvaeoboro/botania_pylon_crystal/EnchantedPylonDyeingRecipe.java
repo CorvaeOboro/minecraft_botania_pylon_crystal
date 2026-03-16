@@ -3,14 +3,9 @@
  * - addon replaces Botania's Pylon visuals with crystal json models.
  * - Overrides via a built-in resourcepack driven by config selected model JSON, dyable color, and client-side rotation.
  * 
- * # ManaPylonDyeingRecipe.java
- * - Custom crafting recipe for dyeing the Mana Pylon item.
- * - Produces a mana pylon ItemStack with `BlockEntityTag` containing the dye color id.
- *
- * # NOTES:
- * - Enabled/disabled by `BotaniaPylonCrystalConfig.allowDyableVariants`.
- * - Uses `NoOpRecipeSerializer` so no JSON/network data is needed beyond the recipe id.
- * - The dye color is stored under `DYE_COLOR_NBT_KEY` and later read by client tint providers and render mixins.
+ * # EnchantedPylonDyeingRecipe.java
+ * - Custom crafting recipe for dyeing the standalone Enchanted Pylon item.
+ * - Produces an enchanted pylon ItemStack with `BlockEntityTag` containing the dye color id.
  */
 
 package corvaeoboro.botania_pylon_crystal;
@@ -34,24 +29,15 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
-public class ManaPylonDyeingRecipe extends CustomRecipe {
-	public static final String DYE_COLOR_NBT_KEY = "botania_pylon_crystal_dye_color";
-	public static final NoOpRecipeSerializer<ManaPylonDyeingRecipe> SERIALIZER = new NoOpRecipeSerializer<>(ManaPylonDyeingRecipe::new);
+public class EnchantedPylonDyeingRecipe extends CustomRecipe {
+	public static final NoOpRecipeSerializer<EnchantedPylonDyeingRecipe> SERIALIZER = new NoOpRecipeSerializer<>(EnchantedPylonDyeingRecipe::new);
 
-	private final Supplier<ItemStack> manaPylon = Suppliers.memoize(() -> {
-		var item = BuiltInRegistries.ITEM.get(BotaniaPylonCrystal.BOTANIA_MANA_PYLON);
-		return item == null || item == Items.AIR ? ItemStack.EMPTY : new ItemStack(item);
-	});
-	private final Supplier<ItemStack> naturaPylon = Suppliers.memoize(() -> {
-		var item = BuiltInRegistries.ITEM.get(BotaniaPylonCrystal.BOTANIA_NATURA_PYLON);
-		return item == null || item == Items.AIR ? ItemStack.EMPTY : new ItemStack(item);
-	});
-	private final Supplier<ItemStack> gaiaPylon = Suppliers.memoize(() -> {
-		var item = BuiltInRegistries.ITEM.get(BotaniaPylonCrystal.BOTANIA_GAIA_PYLON);
+	private final Supplier<ItemStack> enchantedPylon = Suppliers.memoize(() -> {
+		var item = BuiltInRegistries.ITEM.get(BotaniaPylonCrystal.ENCHANTED_PYLON_ID);
 		return item == null || item == Items.AIR ? ItemStack.EMPTY : new ItemStack(item);
 	});
 
-	public ManaPylonDyeingRecipe(ResourceLocation id) {
+	public EnchantedPylonDyeingRecipe(ResourceLocation id) {
 		super(id, CraftingBookCategory.BUILDING);
 	}
 
@@ -66,6 +52,9 @@ public class ManaPylonDyeingRecipe extends CustomRecipe {
 		if (!BotaniaPylonCrystalConfig.get().allowDyableVariants) {
 			return false;
 		}
+		if (!Boolean.TRUE.equals(BotaniaPylonCrystalConfig.get().enableEnchantedPylon)) {
+			return false;
+		}
 
 		ItemStack pylon = ItemStack.EMPTY;
 		ItemStack dye = ItemStack.EMPTY;
@@ -76,7 +65,7 @@ public class ManaPylonDyeingRecipe extends CustomRecipe {
 				continue;
 			}
 
-			if (isBotaniaPylon(stack)) {
+			if (isEnchantedPylon(stack)) {
 				if (!pylon.isEmpty()) {
 					return false;
 				}
@@ -110,7 +99,7 @@ public class ManaPylonDyeingRecipe extends CustomRecipe {
 				continue;
 			}
 
-			if (isBotaniaPylon(stack) && pylon.isEmpty()) {
+			if (isEnchantedPylon(stack) && pylon.isEmpty()) {
 				pylon = stack;
 				continue;
 			}
@@ -127,7 +116,7 @@ public class ManaPylonDyeingRecipe extends CustomRecipe {
 
 		ItemStack out = pylon.copyWithCount(1);
 		CompoundTag bet = out.getOrCreateTagElement("BlockEntityTag");
-		bet.putInt(DYE_COLOR_NBT_KEY, dyeItem.getDyeColor().getId());
+		bet.putInt(ManaPylonDyeingRecipe.DYE_COLOR_NBT_KEY, dyeItem.getDyeColor().getId());
 
 		return out;
 	}
@@ -137,16 +126,8 @@ public class ManaPylonDyeingRecipe extends CustomRecipe {
 		return width * height >= 2;
 	}
 
-	private boolean isBotaniaPylon(ItemStack stack) {
-		var expected = manaPylon.get();
-		if (!expected.isEmpty() && stack.is(expected.getItem())) {
-			return true;
-		}
-		expected = naturaPylon.get();
-		if (!expected.isEmpty() && stack.is(expected.getItem())) {
-			return true;
-		}
-		expected = gaiaPylon.get();
+	private boolean isEnchantedPylon(ItemStack stack) {
+		var expected = enchantedPylon.get();
 		return !expected.isEmpty() && stack.is(expected.getItem());
 	}
 }

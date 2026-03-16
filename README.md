@@ -2,12 +2,12 @@
 
 # Botania Pylon Crystal
 a Minecraft mod that replaces [Botania](https://github.com/VazkiiMods/Botania) pylon visuals with crystals
-- Available for Minecraft 1.20.x with Fabric 
+- [DOWNLOAD](https://modrinth.com/mod/botania-pylon-crystal) Available for Minecraft 1.20.x with Fabric 
 
-| <a href="https://github.com/CorvaeOboro/minecraft_botania_pylon_crystal/raw/main/docs/minecraft_botania_pylon_crystal_thumb.png?raw=true"><img src="https://github.com/CorvaeOboro/minecraft_botania_pylon_crystal/raw/main/docs/minecraft_botania_pylon_crystal_thumb.png?raw=true" height="50"/></a> | <a href="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/supported/fabric_vector.svg"><img src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/supported/fabric_vector.svg" height="50"/></a> | <a href="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/modrinth_vector.svg"><img src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/modrinth_vector.svg" height="50"/></a> | <a href="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/curseforge_vector.svg"><img src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/curseforge_vector.svg" height="50"/></a> |
+| <a href="https://github.com/CorvaeOboro/minecraft_botania_pylon_crystal/raw/main/docs/minecraft_botania_pylon_crystal_thumb.png?raw=true"><img src="https://github.com/CorvaeOboro/minecraft_botania_pylon_crystal/raw/main/docs/minecraft_botania_pylon_crystal_thumb.png?raw=true" height="60"/></a> | <a href="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/supported/fabric_vector.svg"><img src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/supported/fabric_vector.svg" height="60"/></a> | <a href="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/modrinth_vector.svg"><img src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/modrinth_vector.svg" height="60"/></a> | <a href="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/curseforge_vector.svg"><img src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/curseforge_vector.svg" height="60"/></a> |
 | :---: | :---: | :---: | :---: |
 
-<insert image of the animated webp  image here>
+<img src="https://github.com/CorvaeOboro/minecraft_botania_pylon_crystal/raw/main/docs/minecraft_botania_pylon_crystal_anim.webp?raw=true"/>
 
 # FEATURES
 - dyeable crystals , right click with dye 

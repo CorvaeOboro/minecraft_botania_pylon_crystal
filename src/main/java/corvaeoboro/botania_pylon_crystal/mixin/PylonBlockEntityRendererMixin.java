@@ -102,13 +102,15 @@ public class PylonBlockEntityRendererMixin {
 	}
 
 	private static ResourceLocation ringModelFor(ResourceLocation id) {
-		if (BOTANIA_NATURA_PYLON.equals(id)) {
-			return PYLON_RING_NATURA_MODEL;
-		}
-		if (BOTANIA_GAIA_PYLON.equals(id)) {
-			return PYLON_RING_GAIA_MODEL;
-		}
-		return PYLON_RING_MANA_MODEL;
+		String ringChoice = BOTANIA_NATURA_PYLON.equals(id) ? BotaniaPylonCrystalConfig.get().naturaPylonRingModel
+				: (BOTANIA_GAIA_PYLON.equals(id) ? BotaniaPylonCrystalConfig.get().gaiaPylonRingModel
+				: BotaniaPylonCrystalConfig.get().manaPylonRingModel);
+		String v = String.valueOf(ringChoice).trim().toLowerCase(java.util.Locale.ROOT);
+		return switch (v) {
+			case "natura" -> PYLON_RING_NATURA_MODEL;
+			case "gaia" -> PYLON_RING_GAIA_MODEL;
+			default -> PYLON_RING_MANA_MODEL;
+		};
 	}
 
 	@Inject(method = "render", at = @At("HEAD"), cancellable = true)
@@ -177,7 +179,10 @@ public class PylonBlockEntityRendererMixin {
 					buffer, false, RandomSource.create(), state.getSeed(pos), overlay);
 			ms.popPose();
 
-			if (!BotaniaPylonCrystalConfig.get().displayOnlyCrystal) {
+			boolean perPylonDisplayOnlyCrystal = isNatura ? BotaniaPylonCrystalConfig.get().naturaPylonDisplayOnlyCrystal
+					: (isGaia ? BotaniaPylonCrystalConfig.get().gaiaPylonDisplayOnlyCrystal
+					: BotaniaPylonCrystalConfig.get().manaPylonDisplayOnlyCrystal);
+			if (!BotaniaPylonCrystalConfig.get().displayOnlyCrystal && !perPylonDisplayOnlyCrystal) {
 				ResourceLocation ringId = ringModelFor(id);
 				var ringModel = BakedModelManagerHelper.getModel(modelManager, ringId);
 				if (ringModel != null) {

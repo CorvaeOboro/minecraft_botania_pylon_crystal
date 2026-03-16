@@ -37,12 +37,16 @@ public class PylonBlockEntityDyeMixin implements ManaPylonDyedAccess {
 	private int botania_pylon_crystal$dyeColorId = -1;
 	@Unique
 	private static final ResourceLocation BOTANIA_MANA_PYLON = new ResourceLocation("botania", "mana_pylon");
+	@Unique
+	private static final ResourceLocation BOTANIA_NATURA_PYLON = new ResourceLocation("botania", "natura_pylon");
+	@Unique
+	private static final ResourceLocation BOTANIA_GAIA_PYLON = new ResourceLocation("botania", "gaia_pylon");
 
 	@Unique
-	private boolean botania_pylon_crystal$isManaPylon() {
+	private boolean botania_pylon_crystal$isDyableBotaniaPylon() {
 		BlockEntity self = (BlockEntity) (Object) this;
 		var id = BuiltInRegistries.BLOCK.getKey(self.getBlockState().getBlock());
-		return BOTANIA_MANA_PYLON.equals(id);
+		return BOTANIA_MANA_PYLON.equals(id) || BOTANIA_NATURA_PYLON.equals(id) || BOTANIA_GAIA_PYLON.equals(id);
 	}
 
 	@Override
@@ -57,7 +61,7 @@ public class PylonBlockEntityDyeMixin implements ManaPylonDyedAccess {
 
 	@Inject(method = "load(Lnet/minecraft/nbt/CompoundTag;)V", at = @At("TAIL"))
 	private void botania_pylon_crystal$loadDyeColor(CompoundTag tag, CallbackInfo ci) {
-		if (!botania_pylon_crystal$isManaPylon()) {
+		if (!botania_pylon_crystal$isDyableBotaniaPylon()) {
 			return;
 		}
 		if (tag.contains(ManaPylonDyeingRecipe.DYE_COLOR_NBT_KEY)) {
@@ -69,7 +73,7 @@ public class PylonBlockEntityDyeMixin implements ManaPylonDyedAccess {
 
 	@Inject(method = "saveAdditional(Lnet/minecraft/nbt/CompoundTag;)V", at = @At("TAIL"))
 	private void botania_pylon_crystal$saveDyeColor(CompoundTag tag, CallbackInfo ci) {
-		if (!botania_pylon_crystal$isManaPylon()) {
+		if (!botania_pylon_crystal$isDyableBotaniaPylon()) {
 			return;
 		}
 		if (this.botania_pylon_crystal$dyeColorId >= 0) {
@@ -79,7 +83,7 @@ public class PylonBlockEntityDyeMixin implements ManaPylonDyedAccess {
 
 	@Inject(method = "getUpdateTag()Lnet/minecraft/nbt/CompoundTag;", at = @At("RETURN"), cancellable = true)
 	private void botania_pylon_crystal$writeUpdateTag(CallbackInfoReturnable<CompoundTag> cir) {
-		if (!botania_pylon_crystal$isManaPylon()) {
+		if (!botania_pylon_crystal$isDyableBotaniaPylon()) {
 			return;
 		}
 		CompoundTag tag = cir.getReturnValue();
@@ -90,7 +94,7 @@ public class PylonBlockEntityDyeMixin implements ManaPylonDyedAccess {
 
 	@Inject(method = "getUpdatePacket()Lnet/minecraft/network/protocol/Packet;", at = @At("HEAD"), cancellable = true)
 	private void botania_pylon_crystal$forceUpdatePacket(CallbackInfoReturnable<Packet<ClientGamePacketListener>> cir) {
-		if (!botania_pylon_crystal$isManaPylon()) {
+		if (!botania_pylon_crystal$isDyableBotaniaPylon()) {
 			return;
 		}
 		BlockEntity self = (BlockEntity) (Object) this;

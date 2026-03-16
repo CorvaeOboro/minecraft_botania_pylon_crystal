@@ -36,7 +36,11 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 public class BotaniaPylonCrystal implements ModInitializer {
 	public static final String MODID = "botania_pylon_crystal";
 	public static final ResourceLocation BOTANIA_MANA_PYLON = new ResourceLocation("botania", "mana_pylon");
+	public static final ResourceLocation BOTANIA_NATURA_PYLON = new ResourceLocation("botania", "natura_pylon");
+	public static final ResourceLocation BOTANIA_GAIA_PYLON = new ResourceLocation("botania", "gaia_pylon");
 	public static final ResourceLocation MANA_PYLON_DYEING_RECIPE_ID = new ResourceLocation(MODID, "mana_pylon_dyeing");
+	public static final ResourceLocation ENCHANTED_PYLON_DYEING_RECIPE_ID = new ResourceLocation(MODID, "enchanted_pylon_dyeing");
+	public static final ResourceLocation ENCHANTED_PYLON_RECIPE_ID = new ResourceLocation(MODID, "enchanted_pylon");
 	public static final ResourceLocation ENCHANTED_PYLON_ID = new ResourceLocation(MODID, "enchanted_pylon");
 
 	public static Block ENCHANTED_PYLON_BLOCK;
@@ -46,6 +50,9 @@ public class BotaniaPylonCrystal implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, MANA_PYLON_DYEING_RECIPE_ID, ManaPylonDyeingRecipe.SERIALIZER);
+		Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, ENCHANTED_PYLON_DYEING_RECIPE_ID, EnchantedPylonDyeingRecipe.SERIALIZER);
+		Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, ENCHANTED_PYLON_RECIPE_ID, EnchantedPylonRecipe.SERIALIZER);
+		Registry.register(BuiltInRegistries.LOOT_CONDITION_TYPE, EnchantedPylonEnabledLootCondition.ID, EnchantedPylonEnabledLootCondition.TYPE);
 
 		ENCHANTED_PYLON_BLOCK = Registry.register(BuiltInRegistries.BLOCK, ENCHANTED_PYLON_ID,
 				new EnchantedPylonBlock(net.minecraft.world.level.block.state.BlockBehaviour.Properties.copy(Blocks.BOOKSHELF).noOcclusion()));
@@ -65,7 +72,7 @@ public class BotaniaPylonCrystal implements ModInitializer {
 			var pos = hitResult.getBlockPos();
 			var state = world.getBlockState(pos);
 			var id = BuiltInRegistries.BLOCK.getKey(state.getBlock());
-			if (!BOTANIA_MANA_PYLON.equals(id)) {
+			if (!BOTANIA_MANA_PYLON.equals(id) && !BOTANIA_NATURA_PYLON.equals(id) && !BOTANIA_GAIA_PYLON.equals(id) && !ENCHANTED_PYLON_ID.equals(id)) {
 				return InteractionResult.PASS;
 			}
 

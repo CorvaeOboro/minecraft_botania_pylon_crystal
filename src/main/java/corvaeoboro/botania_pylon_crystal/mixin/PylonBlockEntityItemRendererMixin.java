@@ -82,13 +82,15 @@ public class PylonBlockEntityItemRendererMixin {
 	}
 
 	private static ResourceLocation ringModelFor(ResourceLocation id) {
-		if (BOTANIA_NATURA_PYLON.equals(id)) {
-			return PYLON_RING_NATURA_MODEL;
-		}
-		if (BOTANIA_GAIA_PYLON.equals(id)) {
-			return PYLON_RING_GAIA_MODEL;
-		}
-		return PYLON_RING_MANA_MODEL;
+		String ringChoice = BOTANIA_NATURA_PYLON.equals(id) ? BotaniaPylonCrystalConfig.get().naturaPylonRingModel
+				: (BOTANIA_GAIA_PYLON.equals(id) ? BotaniaPylonCrystalConfig.get().gaiaPylonRingModel
+				: BotaniaPylonCrystalConfig.get().manaPylonRingModel);
+		String v = String.valueOf(ringChoice).trim().toLowerCase(java.util.Locale.ROOT);
+		return switch (v) {
+			case "natura" -> PYLON_RING_NATURA_MODEL;
+			case "gaia" -> PYLON_RING_GAIA_MODEL;
+			default -> PYLON_RING_MANA_MODEL;
+		};
 	}
 
 	@Inject(method = "render", at = @At("HEAD"), cancellable = true)
@@ -116,6 +118,9 @@ public class PylonBlockEntityItemRendererMixin {
 		String variant = isMana ? BotaniaPylonCrystalConfig.get().manaPylonCrystalVariant
 				: (isNatura ? BotaniaPylonCrystalConfig.get().naturaPylonCrystalVariant
 				: BotaniaPylonCrystalConfig.get().gaiaPylonCrystalVariant);
+		boolean perPylonDisplayOnlyCrystal = isNatura ? BotaniaPylonCrystalConfig.get().naturaPylonDisplayOnlyCrystal
+				: (isGaia ? BotaniaPylonCrystalConfig.get().gaiaPylonDisplayOnlyCrystal
+				: BotaniaPylonCrystalConfig.get().manaPylonDisplayOnlyCrystal);
 
 		var crystalModel = BakedModelManagerHelper.getModel(modelManager, crystalModelFor(id, variant));
 		var ringModel = BakedModelManagerHelper.getModel(modelManager, ringModelFor(id));
@@ -127,7 +132,7 @@ public class PylonBlockEntityItemRendererMixin {
 		if (crystalModel != null) {
 			renderer.renderModel(ms.last(), buffer, null, crystalModel, 1, 1, 1, light, overlay);
 		}
-		if (!BotaniaPylonCrystalConfig.get().displayOnlyCrystal && ringModel != null) {
+		if (!BotaniaPylonCrystalConfig.get().displayOnlyCrystal && !perPylonDisplayOnlyCrystal && ringModel != null) {
 			var tintedRing = new TintIndexBakedModel(ringModel, 1);
 			renderer.renderModel(ms.last(), buffer, null, tintedRing, 1, 1, 1, light, overlay);
 		}

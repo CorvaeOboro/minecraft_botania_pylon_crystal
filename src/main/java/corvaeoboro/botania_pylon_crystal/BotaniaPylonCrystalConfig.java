@@ -187,6 +187,10 @@ public final class BotaniaPylonCrystalConfig {
 				data.overrideGaiaPylon = true;
 				shouldWrite = true;
 			}
+			if (data.enableEnchantedPylon == null) {
+				data.enableEnchantedPylon = true;
+				shouldWrite = true;
+			}
 
 			String defaultVariant = "tall";
 			String manaVariant = normalizeCrystalVariant(data.manaPylonCrystalVariant, defaultVariant);
@@ -205,6 +209,22 @@ public final class BotaniaPylonCrystalConfig {
 				shouldWrite = true;
 			}
 
+			String manaRing = normalizeRingModel(data.manaPylonRingModel, "mana");
+			if (!manaRing.equals(data.manaPylonRingModel)) {
+				data.manaPylonRingModel = manaRing;
+				shouldWrite = true;
+			}
+			String naturaRing = normalizeRingModel(data.naturaPylonRingModel, "natura");
+			if (!naturaRing.equals(data.naturaPylonRingModel)) {
+				data.naturaPylonRingModel = naturaRing;
+				shouldWrite = true;
+			}
+			String gaiaRing = normalizeRingModel(data.gaiaPylonRingModel, "gaia");
+			if (!gaiaRing.equals(data.gaiaPylonRingModel)) {
+				data.gaiaPylonRingModel = gaiaRing;
+				shouldWrite = true;
+			}
+
 			String enchantedVariant = normalizeCrystalVariant(data.enchantedPylonCrystalVariant, defaultVariant);
 			if (!enchantedVariant.equals(data.enchantedPylonCrystalVariant)) {
 				data.enchantedPylonCrystalVariant = enchantedVariant;
@@ -217,8 +237,8 @@ public final class BotaniaPylonCrystalConfig {
 			}
 
 
-			if (data.schemaVersion < 16) {
-				data.schemaVersion = 16;
+			if (data.schemaVersion < 19) {
+				data.schemaVersion = 19;
 				shouldWrite = true;
 			}
 
@@ -283,6 +303,12 @@ public final class BotaniaPylonCrystalConfig {
 		appendKeyValue(sb, "mana_pylon_crystal_variant", data.manaPylonCrystalVariant, true);
 		appendKeyValue(sb, "natura_pylon_crystal_variant", data.naturaPylonCrystalVariant, true);
 		appendKeyValue(sb, "gaia_pylon_crystal_variant", data.gaiaPylonCrystalVariant, true);
+		appendKeyValue(sb, "mana_pylon_ring_model", data.manaPylonRingModel, true);
+		appendKeyValue(sb, "natura_pylon_ring_model", data.naturaPylonRingModel, true);
+		appendKeyValue(sb, "gaia_pylon_ring_model", data.gaiaPylonRingModel, true);
+		appendKeyValue(sb, "mana_pylon_display_only_crystal", data.manaPylonDisplayOnlyCrystal, true);
+		appendKeyValue(sb, "natura_pylon_display_only_crystal", data.naturaPylonDisplayOnlyCrystal, true);
+		appendKeyValue(sb, "gaia_pylon_display_only_crystal", data.gaiaPylonDisplayOnlyCrystal, true);
 		sb.append("\n");
 		
 		appendSectionHeader(sb, "Pylon Crystal Rendering");
@@ -310,6 +336,7 @@ public final class BotaniaPylonCrystalConfig {
 		sb.append("  },\n\n");
 
 		appendSectionHeader(sb, "Enchanted Pylon");
+		appendKeyValue(sb, "enchanted_pylon_enable", data.enableEnchantedPylon != null && data.enableEnchantedPylon, true);
 		appendKeyValueWithComment(sb, "enchanted_pylon_enable_rotation", data.enchantedPylonEnableRotation,
 				"If true, the Enchanted Pylon crystal and ring will rotate via the custom renderer when placed in world");
 		appendKeyValueWithComment(sb, "enchanted_pylon_rotation_speed_deg_per_tick", data.enchantedPylonRotationSpeedDegPerTick,
@@ -408,7 +435,7 @@ public final class BotaniaPylonCrystalConfig {
 	}
 
 	public static final class Data {
-		public int schemaVersion = 16;
+		public int schemaVersion = 19;
 		@SerializedName(value = "enableRotation", alternate = { "rotating", "ROTATING" })
 		public boolean enableRotation = true;
 		public float rotationSpeedDegPerTick = 1.0F;
@@ -435,8 +462,22 @@ public final class BotaniaPylonCrystalConfig {
 		public String naturaPylonCrystalVariant = "tall";
 		@SerializedName(value = "gaia_pylon_crystal_variant", alternate = { "gaiaPylonCrystalVariant" })
 		public String gaiaPylonCrystalVariant = "tall";
+		@SerializedName(value = "mana_pylon_ring_model", alternate = { "manaPylonRingModel" })
+		public String manaPylonRingModel = "mana";
+		@SerializedName(value = "natura_pylon_ring_model", alternate = { "naturaPylonRingModel" })
+		public String naturaPylonRingModel = "natura";
+		@SerializedName(value = "gaia_pylon_ring_model", alternate = { "gaiaPylonRingModel" })
+		public String gaiaPylonRingModel = "gaia";
+		@SerializedName(value = "mana_pylon_display_only_crystal", alternate = { "manaPylonDisplayOnlyCrystal" })
+		public boolean manaPylonDisplayOnlyCrystal = false;
+		@SerializedName(value = "natura_pylon_display_only_crystal", alternate = { "naturaPylonDisplayOnlyCrystal" })
+		public boolean naturaPylonDisplayOnlyCrystal = false;
+		@SerializedName(value = "gaia_pylon_display_only_crystal", alternate = { "gaiaPylonDisplayOnlyCrystal" })
+		public boolean gaiaPylonDisplayOnlyCrystal = false;
 		@SerializedName(value = "enchanted_pylon_enable_rotation", alternate = { "enchantedPylonEnableRotation" })
 		public boolean enchantedPylonEnableRotation = true;
+		@SerializedName(value = "enchanted_pylon_enable", alternate = { "enableEnchantedPylon" })
+		public Boolean enableEnchantedPylon = true;
 		@SerializedName(value = "enchanted_pylon_rotation_speed_deg_per_tick", alternate = { "enchantedPylonRotationSpeedDegPerTick" })
 		public float enchantedPylonRotationSpeedDegPerTick = 1.0F;
 		@SerializedName(value = "enchanted_pylon_render_layer", alternate = { "enchantedPylonRenderLayer" })
@@ -450,6 +491,14 @@ public final class BotaniaPylonCrystalConfig {
 	private static String normalizeCrystalVariant(String value, String defaultValue) {
 		String v = String.valueOf(value).trim().toLowerCase(Locale.ROOT);
 		if (v.equals("tall") || v.equals("short") || v.equals("tallshort") || v.equals("shorttall")) {
+			return v;
+		}
+		return defaultValue;
+	}
+
+	private static String normalizeRingModel(String value, String defaultValue) {
+		String v = String.valueOf(value).trim().toLowerCase(Locale.ROOT);
+		if (v.equals("mana") || v.equals("natura") || v.equals("gaia")) {
 			return v;
 		}
 		return defaultValue;

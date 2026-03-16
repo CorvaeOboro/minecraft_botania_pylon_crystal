@@ -44,6 +44,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.core.BlockPos;
@@ -148,15 +149,59 @@ public class BotaniaPylonCrystalClient implements ClientModInitializer {
 		ClientLifecycleEvents.CLIENT_STARTED.register(client -> applyEnchantedPylonLayerMapping("CLIENT_STARTED"));
 
 		BlockEntityRenderers.register(BotaniaPylonCrystal.ENCHANTED_PYLON_BLOCK_ENTITY_TYPE, EnchantedPylonBlockEntityRenderer::new);
-		BuiltinItemRendererRegistry.INSTANCE.register(BotaniaPylonCrystal.ENCHANTED_PYLON_ITEM,
-				(stack, mode, ms, buffers, light, overlay) -> EnchantedPylonBlockEntityRenderer.renderItem(ms, buffers, light, overlay));
+		if (BotaniaPylonCrystal.ENCHANTED_PYLON_ITEM != null && BotaniaPylonCrystal.ENCHANTED_PYLON_ITEM != Items.AIR) {
+			BuiltinItemRendererRegistry.INSTANCE.register(BotaniaPylonCrystal.ENCHANTED_PYLON_ITEM,
+					(stack, mode, ms, buffers, light, overlay) -> EnchantedPylonBlockEntityRenderer.renderItem(ms, buffers, light, overlay));
+		}
 		registerPylonColors();
+		registerEnchantedPylonColors();
 	}
 
 	private static void registerPylonColors() {
 		registerPylonColorsFor(BOTANIA_MANA_PYLON, "botania:mana_pylon");
 		registerPylonColorsFor(BOTANIA_NATURA_PYLON, "botania:natura_pylon");
 		registerPylonColorsFor(BOTANIA_GAIA_PYLON, "botania:gaia_pylon");
+	}
+
+	private static void registerEnchantedPylonColors() {
+		Block block = BotaniaPylonCrystal.ENCHANTED_PYLON_BLOCK;
+		Item item = BotaniaPylonCrystal.ENCHANTED_PYLON_ITEM;
+		if (block == null || block == Blocks.AIR) {
+			return;
+		}
+
+		ColorProviderRegistry.BLOCK.register((BlockState state, net.minecraft.world.level.BlockAndTintGetter world, BlockPos pos, int tintIndex) -> {
+			if (tintIndex != 0 && tintIndex != 1) {
+				return 0xFFFFFF;
+			}
+			if (tintIndex == 1 && !BotaniaPylonCrystalConfig.get().tintRingWithDye) {
+				return 0xFFFFFF;
+			}
+			if (world == null || pos == null) {
+				return 0xFFFFFF;
+			}
+			var be = world.getBlockEntity(pos);
+			if (be instanceof ManaPylonDyedAccess access) {
+				return dyeColorIdToRgb(access.botania_pylon_crystal$getDyeColorId());
+			}
+			return 0xFFFFFF;
+		}, block);
+
+		if (item != null && item != Items.AIR) {
+			ColorProviderRegistry.ITEM.register((ItemStack stack, int tintIndex) -> {
+				if (tintIndex != 0 && tintIndex != 1) {
+					return 0xFFFFFF;
+				}
+				if (tintIndex == 1 && !BotaniaPylonCrystalConfig.get().tintRingWithDye) {
+					return 0xFFFFFF;
+				}
+				var bet = stack.getTagElement("BlockEntityTag");
+				if (bet != null && bet.contains(ManaPylonDyeingRecipe.DYE_COLOR_NBT_KEY)) {
+					return dyeColorIdToRgb(bet.getInt(ManaPylonDyeingRecipe.DYE_COLOR_NBT_KEY));
+				}
+				return 0xFFFFFF;
+			}, item);
+		}
 	}
 
 	private static void registerPylonColorsFor(ResourceLocation id, String label) {
